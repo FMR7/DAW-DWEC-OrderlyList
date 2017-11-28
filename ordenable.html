@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Ejercicio 2</title>
+    <style>
+        ul{
+            float: left;   
+        }
+        #u1 li{
+            border: 1px solid black;
+            width: 200px;
+            font-size: 24px;
+            margin: 2px;
+        }
+        
+        #u2 li{
+            
+            width: 200px;
+            font-size: 24px;
+            margin: 2px;
+            height: 30px;
+        }
+        
+        img{
+            height: 32px;   
+        }
+        
+        #div{
+            width: 500px;   
+        }
+    </style>
+    
+    <script type="text/javascript">
+        //Fernando
+
+        var selId=1;
+        
+        
+        function marcar(nId){
+            if((nId>0)&&(nId<7)){
+                for(var i=1; i<=6; i++){
+                document.getElementById(i).style.background = "#ffffff";
+                }
+                var seleccionado = document.getElementById(nId);
+                seleccionado.style.background = "#464eff";
+                selId = nId;
+            }
+        }
+        
+        function mover(nId){
+            if(nId!=""){
+                if((nId=="img1")||(nId=="img2")){
+                    if(nId == "img1"){
+                        mover(parseInt(selId)-1);  
+                    }
+                    if(nId == "img2"){
+                        mover(parseInt(selId)+1);
+                    }
+                }if((nId>0)&&(nId<7)){
+                    for(var i=1; i<=6; i++){
+                    document.getElementById(i).style.background = "#ffffff";
+                    }
+                    var seleccionado = document.getElementById(nId);
+                    seleccionado.style.background = "#464eff";
+                    var oldSeleccionado = document.getElementById(selId);
+
+                    var oldElementText = oldSeleccionado.innerHTML;
+                    var newElementText = seleccionado.innerHTML;
+
+                    oldSeleccionado.innerHTML = newElementText;
+                    seleccionado.innerHTML = oldElementText;
+
+                    var newFlechasPos = document.getElementById("l"+nId);
+                    var flechas = document.getElementById("d1");
+                    newFlechasPos.appendChild(flechas);
+
+
+                    selId = nId;
+                }
+            }
+        }
+        
+        function getKey(evento){
+            var keyCode = evento.which;
+            if((keyCode==38)&&(selId>1)){//SUBIR
+                mover(parseInt(selId)-1);
+            }if((keyCode==40)&&(selId<6)){//BAJAR
+                mover(parseInt(selId)+1);
+            }
+        }
+
+        function click(evento){
+            var id = evento.target.id;
+            if(id!=null){
+                if((id=="img1")||(id=="img2")){
+                    mover(id);
+                }else{
+                    marcar(id);
+                }
+            }
+        }
+        
+        window.onload = function() {
+            document.onkeydown = getKey;
+            document.onclick = click;
+            document.getElementById("1").style.background = "#464eff";
+        }
+
+    </script>
+</head>
+
+<body>
+   <div id="div">
+        <h2>Ordenación Menú</h2>
+        <ul id="u1" style="list-style-type:none">
+             <li id="1">HTML 5</li>
+             <li id="2">CSS 3</li>
+             <li id="3">Javascript</li>
+             <li id="4">AJAX</li>
+             <li id="5">PHP</li>
+             <li id="6">MYSQL</li>
+         </ul>
+         <ul id="u2" style="list-style-type:none">
+             <li id="l1"><div id="d1"><img id="img1" src="flechaArriba.png"><img id="img2" src="flechaAbajo.png"></div></li>
+             <li id="l2"></li>
+             <li id="l3"></li>
+             <li id="l4"></li>
+             <li id="l5"></li>
+             <li id="l6"></li>
+         </ul>
+   </div>
+</body>
+</html>
